@@ -3,7 +3,7 @@
  */
 import React, { useState, useEffect, useRef } from "react";
 import { useMutation, useLazyQuery } from "@apollo/client";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line
 import ReactMarkdown from "react-markdown";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import {
@@ -54,17 +54,17 @@ const TypingDots = () => (
     className="flex space-x-1 text-cyan-400 ml-2"
   >
     <motion.div
-      className="w-2 h-2 bg-cyan-400 rounded-full"
+      className="w-2 h-2 bg-white/70 rounded-full"
       animate={{ scale: [1, 1.2, 1], opacity: [0.4, 1, 0.4] }}
       transition={{ duration: 1.5, repeat: Infinity, delay: 0 }}
     />
     <motion.div
-      className="w-2 h-2 bg-cyan-400 rounded-full"
+      className="w-2 h-2 bg-white/70 rounded-full"
       animate={{ scale: [1, 1.2, 1], opacity: [0.4, 1, 0.4] }}
       transition={{ duration: 1.5, repeat: Infinity, delay: 0.2 }}
     />
     <motion.div
-      className="w-2 h-2 bg-cyan-400 rounded-full"
+      className="w-2 h-2 bg-white/70 rounded-full"
       animate={{ scale: [1, 1.2, 1], opacity: [0.4, 1, 0.4] }}
       transition={{ duration: 1.5, repeat: Infinity, delay: 0.4 }}
     />
@@ -93,7 +93,7 @@ const AnimatedBackground = () => (
     {[...Array(6)].map((_, i) => (
       <motion.div
         key={i}
-        className="absolute w-1 h-1 bg-cyan-400 rounded-full"
+        className="absolute w-1 h-1 bg-white/40 rounded-full"
         initial={{
           x: Math.random() * window.innerWidth,
           y: Math.random() * window.innerHeight,
@@ -421,7 +421,15 @@ export default function ChatWindow({
    * RENDER
    */
   return (
-    <div className="flex flex-col h-full w-full max-w-full relative overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-800">
+    <div
+      className="flex flex-col h-full w-full max-w-full relative overflow-hidden"
+      style={{
+        background:
+          "linear-gradient(135deg, rgba(0, 0, 0, 0.4) 0%, rgba(0, 0, 0, 0.2) 100%)",
+        backdropFilter: "blur(20px)",
+        WebkitBackdropFilter: "blur(20px)",
+      }}
+    >
       {/* Animated Background */}
       <AnimatedBackground />
 
@@ -430,7 +438,11 @@ export default function ChatWindow({
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center justify-between p-4 border-b border-cyan-500/20 backdrop-blur-sm bg-black/30 relative z-10"
+        className="flex items-center justify-between p-4 border-b border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
+        style={{
+          boxShadow:
+            "0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+        }}
       >
         <div className="flex items-center space-x-3">
           {!sidebarOpen && (
@@ -438,14 +450,14 @@ export default function ChatWindow({
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSidebarOpen(true)}
-              className="p-2 hover:bg-cyan-500/20 rounded-lg border border-cyan-500/30 text-cyan-400 transition-all duration-300"
+              className="p-2 hover:bg-white/10 rounded-lg border border-white/20 text-white/80 transition-all duration-300 hover:text-white"
               aria-label="Open sidebar"
             >
               ☰
             </motion.button>
           )}
           <motion.h1
-            className="font-semibold text-xl bg-gradient-to-r from-cyan-400 to-blue-400 bg-clip-text text-transparent"
+            className="font-semibold text-xl text-white/90"
             animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -459,13 +471,19 @@ export default function ChatWindow({
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          <div className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
+          <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
           <span className="text-green-400 text-xs">AI Online</span>
         </motion.div>
       </motion.div>
 
       {/* Messages */}
-      <div className="flex-1 overflow-y-auto px-8 py-6 relative z-10">
+      <div
+        className="flex-1 overflow-y-auto px-8 py-6 relative z-10 scrollbar-hide"
+        style={{
+          scrollbarWidth: "none", // Firefox
+          msOverflowStyle: "none", // IE/Edge
+        }}
+      >
         {messages.length === 0 && (
           <motion.div
             initial={{ opacity: 0, y: 20 }}
@@ -515,12 +533,28 @@ export default function ChatWindow({
                 }`}
               >
                 {msg.role === "USER" ? (
-                  <div className="w-10 h-10 bg-gradient-to-br from-blue-500 to-purple-600 rounded-full flex items-center justify-center border-2 border-blue-400/50 shadow-lg shadow-blue-500/20">
+                  <div
+                    className="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                      backdropFilter: "blur(10px)",
+                      boxShadow:
+                        "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+                    }}
+                  >
                     <span className="text-white text-sm font-bold">U</span>
                   </div>
                 ) : (
                   <motion.div
-                    className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center border-2 border-cyan-400/50 shadow-lg shadow-cyan-500/20"
+                    className="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                      backdropFilter: "blur(10px)",
+                      boxShadow:
+                        "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+                    }}
                     animate={{
                       boxShadow: [
                         "0 0 10px rgba(0,255,255,0.3)",
@@ -575,7 +609,7 @@ export default function ChatWindow({
                                 {String(children).replace(/\n$/, "")}
                               </SyntaxHighlighter>
                             ) : (
-                              <code className="bg-cyan-900/40 text-cyan-300 px-2 py-1 rounded border border-cyan-500/30">
+                              <code className="bg-white/10 text-white/90 px-2 py-1 rounded border border-white/20 backdrop-blur-sm">
                                 {children}
                               </code>
                             );
@@ -594,7 +628,7 @@ export default function ChatWindow({
                     msg.role === "USER" ? "justify-end" : "justify-start"
                   }`}
                 >
-                  <span className="bg-gray-800/50 px-2 py-1 rounded border border-gray-600/30">
+                  <span className="bg-white/10 px-2 py-1 rounded border border-white/20 backdrop-blur-sm text-white/80">
                     {msg.timestamp}
                   </span>
                   <motion.button
@@ -604,7 +638,7 @@ export default function ChatWindow({
                       navigator.clipboard.writeText(msg.content);
                       toast.success("Message copied to clipboard");
                     }}
-                    className="ml-2 opacity-0 group-hover:opacity-100 text-cyan-400 hover:text-cyan-300 text-xs px-2 py-1 border border-cyan-500/30 rounded bg-cyan-900/20 transition-all duration-300"
+                    className="ml-2 opacity-0 group-hover:opacity-100 text-white/70 hover:text-white text-xs px-2 py-1 border border-white/20 rounded bg-white/10 transition-all duration-300 backdrop-blur-sm"
                     aria-label="Copy message"
                   >
                     Copy
@@ -619,9 +653,18 @@ export default function ChatWindow({
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            className="flex items-center text-sm text-cyan-400 bg-gray-800/30 rounded-full px-4 py-2 backdrop-blur-sm border border-cyan-500/20"
+            className="flex items-center text-sm text-white/80 bg-white/10 rounded-full px-4 py-2 backdrop-blur-sm border border-white/20"
           >
-            <motion.div className="w-8 h-8 bg-gradient-to-br from-cyan-400 to-blue-500 rounded-full flex items-center justify-center mr-3">
+            <motion.div
+              className="w-8 h-8 rounded-full flex items-center justify-center mr-3"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                backdropFilter: "blur(10px)",
+                boxShadow:
+                  "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+              }}
+            >
               <span className="text-black text-xs font-bold">M</span>
             </motion.div>
             AI processing <TypingDots />
@@ -635,7 +678,11 @@ export default function ChatWindow({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="p-6 border-t border-cyan-500/20 backdrop-blur-sm bg-black/30 relative z-10"
+        className="p-6 border-t border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
+        style={{
+          boxShadow:
+            "0 -4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+        }}
       >
         <div className="flex space-x-3 items-end">
           <div className="relative flex-1">
@@ -645,12 +692,13 @@ export default function ChatWindow({
               onChange={(e) => setFinalInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message here..."
-              className="w-full px-4 py-3 rounded-xl bg-gray-800/80 text-white pr-16 resize-none border border-cyan-500/30 focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400/20 backdrop-blur-sm shadow-lg transition-all duration-300 placeholder-gray-400"
-              rows="1"
+              className="w-full px-4 py-3 rounded-xl text-white pr-16 resize-none border border-white/20 focus:border-white/40 focus:ring-2 focus:ring-white/10 backdrop-blur-sm shadow-lg transition-all duration-300 placeholder-white/50"
               style={{
                 background:
-                  "linear-gradient(135deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.9) 100%)",
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                backdropFilter: "blur(10px)",
               }}
+              rows="1"
             />
             {interimInput && (
               <motion.div
@@ -692,7 +740,14 @@ export default function ChatWindow({
             whileHover={{ scale: 1.05 }}
             whileTap={{ scale: 0.95 }}
             onClick={handleSendMessage}
-            className="px-6 py-3 bg-gradient-to-r from-cyan-500 to-blue-500 rounded-xl text-white font-semibold border border-cyan-400/50 shadow-lg shadow-cyan-500/20 hover:shadow-cyan-500/40 transition-all duration-300"
+            className="px-6 py-3 rounded-xl text-white font-semibold border border-white/20 shadow-lg hover:shadow-white/20 transition-all duration-300 backdrop-blur-sm"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+              backdropFilter: "blur(10px)",
+              boxShadow:
+                "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+            }}
             aria-label="Send message"
           >
             Send

@@ -1,11 +1,11 @@
 /*
  * IMPORTS
  */
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line
 import toast from "react-hot-toast";
 import { loginSuccess } from "../store/slices/authSlice";
 import { validateEmail, validatePassword } from "../utils/validation";
@@ -124,7 +124,7 @@ export default function Login() {
    */
   const FloatingParticle = ({ index }) => (
     <motion.div
-      className="absolute w-1 h-1 bg-cyan-400 rounded-full opacity-60"
+      className="absolute w-1 h-1 bg-white/40 rounded-full opacity-60"
       animate={{
         x: [0, Math.random() * 100 - 50],
         y: [0, Math.random() * 100 - 50],
@@ -143,41 +143,159 @@ export default function Login() {
     />
   );
 
-  const AnimatedBackground = () => (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-blue-900 to-cyan-900" />
+  const AnimatedBackground = useMemo(
+    () => (
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Base gradient matching Web3 background */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-blue-950/30 to-cyan-950/20" />
 
-      {/* Additional glow effects */}
-      <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-cyan-500/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
+        {/* Organic Blob - Left Side */}
+        <motion.div
+          className="absolute left-[-10%] top-[20%] w-96 h-96 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 60% 80% at 30% 40%, rgba(0, 255, 255, 0.6) 0%, rgba(0, 200, 255, 0.3) 30%, rgba(0, 150, 255, 0.1) 60%, transparent 100%)",
+            filter: "blur(50px)",
+            borderRadius: "60% 40% 30% 70% / 60% 30% 70% 40%",
+          }}
+          animate={{
+            scale: [1, 1.4, 0.8, 1.2, 1],
+            rotate: [0, 45, -30, 60, 0],
+            borderRadius: [
+              "60% 40% 30% 70% / 60% 30% 70% 40%",
+              "30% 60% 70% 40% / 50% 60% 30% 60%",
+              "50% 40% 60% 30% / 40% 50% 60% 30%",
+              "40% 70% 30% 60% / 70% 40% 50% 60%",
+              "60% 40% 30% 70% / 60% 30% 70% 40%",
+            ],
+            x: [-50, -20, -80, -40, -50],
+            y: [0, 30, -20, 10, 0],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      {/* Animated Gradient Overlay */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-cyan-500/8 to-transparent"
-        animate={{
-          x: ["-100%", "100%"],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      />
+        {/* Organic Blob - Right Side */}
+        <motion.div
+          className="absolute right-[-5%] top-[60%] w-80 h-80 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 50% at 60% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(0, 255, 255, 0.3) 40%, rgba(0, 200, 255, 0.1) 70%, transparent 100%)",
+            filter: "blur(45px)",
+            borderRadius: "40% 60% 70% 30% / 40% 60% 30% 70%",
+          }}
+          animate={{
+            scale: [1.1, 0.7, 1.3, 0.9, 1.1],
+            rotate: [0, -60, 40, -20, 0],
+            borderRadius: [
+              "40% 60% 70% 30% / 40% 60% 30% 70%",
+              "70% 30% 40% 60% / 60% 40% 70% 30%",
+              "30% 70% 60% 40% / 30% 70% 40% 60%",
+              "60% 40% 30% 70% / 70% 30% 60% 40%",
+              "40% 60% 70% 30% / 40% 60% 30% 70%",
+            ],
+            x: [20, -10, 40, 0, 20],
+            y: [-30, 20, -40, 10, -30],
+          }}
+          transition={{
+            duration: 15,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
-        <FloatingParticle key={i} index={i} />
-      ))}
+        {/* Central Floating Blob */}
+        <motion.div
+          className="absolute top-[40%] left-[45%] w-72 h-72 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 40% 50%, rgba(0, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(0, 150, 255, 0.08) 60%, transparent 100%)",
+            filter: "blur(35px)",
+            borderRadius: "50% 70% 30% 50% / 60% 40% 60% 40%",
+          }}
+          animate={{
+            scale: [0.8, 1.2, 0.9, 1.1, 0.8],
+            rotate: [0, 120, -80, 200, 0],
+            borderRadius: [
+              "50% 70% 30% 50% / 60% 40% 60% 40%",
+              "70% 30% 50% 70% / 40% 60% 40% 60%",
+              "30% 50% 70% 30% / 60% 40% 60% 40%",
+              "50% 70% 30% 50% / 40% 60% 40% 60%",
+              "50% 70% 30% 50% / 60% 40% 60% 40%",
+            ],
+            x: [-20, 30, -40, 20, -20],
+            y: [10, -30, 25, -15, 10],
+          }}
+          transition={{
+            duration: 18,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      {/* Enhanced Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(6,182,212,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(6,182,212,0.08)_1px,transparent_1px)] bg-[size:60px_60px]" />
-    </div>
+        {/* Small Ambient Blobs */}
+        {[...Array(4)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-32 h-32 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)",
+              filter: "blur(20px)",
+              borderRadius: "50%",
+              left: `${20 + i * 20}%`,
+              top: `${15 + i * 15}%`,
+            }}
+            animate={{
+              scale: [0.5, 1.5, 0.7, 1.2, 0.5],
+              opacity: [0.3, 0.7, 0.4, 0.8, 0.3],
+              x: [0, 50, -30, 40, 0],
+              y: [0, -40, 30, -20, 0],
+            }}
+            transition={{
+              duration: 8 + i * 2,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 1.5,
+            }}
+          />
+        ))}
+
+        {/* Glassmorphism glow effects */}
+        <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-white/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-white/3 rounded-full blur-3xl"></div>
+
+        {/* Animated Gradient Overlay */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent"
+          animate={{
+            x: ["-100%", "100%"],
+          }}
+          transition={{
+            duration: 10,
+            repeat: Infinity,
+            repeatType: "loop",
+          }}
+        />
+
+        {/* Floating Particles */}
+        {[...Array(20)].map((_, i) => (
+          <FloatingParticle key={i} index={i} />
+        ))}
+
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(255,255,255,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.03)_1px,transparent_1px)] bg-[size:80px_80px]" />
+      </div>
+    ),
+    []
   );
 
   return (
     <div className="min-h-screen flex flex-col fixed inset-0">
-      <AnimatedBackground />
+      {AnimatedBackground}
 
       {/* Header */}
       <motion.div
@@ -188,7 +306,15 @@ export default function Login() {
       >
         <div className="flex items-center space-x-3">
           <motion.div
-            className="w-10 h-10 bg-gradient-to-br from-cyan-400 to-blue-600 rounded-xl flex items-center justify-center shadow-2xl shadow-cyan-500/30 border border-cyan-400/20"
+            className="w-10 h-10 rounded-xl flex items-center justify-center shadow-2xl border"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+              backdropFilter: "blur(10px)",
+              border: "1px solid rgba(255, 255, 255, 0.2)",
+              boxShadow:
+                "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+            }}
             whileHover={{
               scale: 1.1,
               boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.4)",
@@ -197,9 +323,7 @@ export default function Login() {
           >
             <span className="text-white font-bold text-xl">M</span>
           </motion.div>
-          <span className="text-2xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent">
-            MicroCore
-          </span>
+          <span className="text-2xl font-bold text-white/90">MicroCore</span>
         </div>
       </motion.div>
 
@@ -213,7 +337,15 @@ export default function Login() {
         >
           {/* Form Container with enhanced glass effect */}
           <motion.div
-            className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
+            className="backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
+            style={{
+              background:
+                "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+              backdropFilter: "blur(20px)",
+              WebkitBackdropFilter: "blur(20px)",
+              boxShadow:
+                "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
+            }}
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
@@ -224,10 +356,10 @@ export default function Login() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-cyan-400 via-blue-400 to-purple-400 bg-clip-text text-transparent mb-4">
-                Welcome Back
+              <h1 className="text-4xl font-bold text-white/90 mb-4">
+                Connect to MicroCore
               </h1>
-              <p className="text-sm text-cyan-300/80">
+              <p className="text-sm text-white/70">
                 Sign in to access your AI microservices dashboard
               </p>
             </motion.div>
@@ -249,11 +381,16 @@ export default function Login() {
                   type="email"
                   name="email"
                   placeholder="Email address"
-                  className={`w-full text-white px-5 py-4 text-sm border rounded-2xl placeholder-cyan-300/70 bg-black/40 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 hover:bg-black/50 ${
+                  className={`w-full text-white px-5 py-4 text-sm border rounded-2xl placeholder-white/50 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
                     errors.email
-                      ? "border-red-400 focus:ring-red-400/50 bg-red-900/20"
-                      : "focus:ring-cyan-400/50 hover:border-white/30"
+                      ? "focus:ring-red-400/50 border-red-400/50"
+                      : "focus:ring-white/20 hover:border-white/30"
                   }`}
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                    backdropFilter: "blur(10px)",
+                  }}
                   value={form.email}
                   onChange={handleInputChange}
                   disabled={loading}
@@ -279,11 +416,16 @@ export default function Login() {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  className={`w-full text-white px-5 py-4 text-sm border rounded-2xl placeholder-cyan-300/70 bg-black/40 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 hover:bg-black/50 ${
+                  className={`w-full text-white px-5 py-4 text-sm border rounded-2xl placeholder-white/50 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
                     errors.password
                       ? "border-red-400 focus:ring-red-400/50 bg-red-900/20"
-                      : "focus:ring-cyan-400/50 hover:border-white/30"
+                      : "focus:ring-white/20 hover:border-white/30"
                   }`}
+                  style={{
+                    background:
+                      "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                    backdropFilter: "blur(10px)",
+                  }}
                   value={form.password}
                   onChange={handleInputChange}
                   disabled={loading}
@@ -303,7 +445,14 @@ export default function Login() {
               <motion.button
                 type="submit"
                 disabled={loading}
-                className="w-full bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 text-white py-4 rounded-2xl text-sm font-semibold hover:from-cyan-400 hover:via-blue-500 hover:to-purple-500 focus:outline-none focus:ring-2 focus:ring-cyan-400/50 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl shadow-cyan-500/25 border border-white/10"
+                className="w-full text-white py-4 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl border border-white/10"
+                style={{
+                  background:
+                    "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                  backdropFilter: "blur(10px)",
+                  boxShadow:
+                    "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+                }}
                 whileHover={{
                   scale: loading ? 1 : 1.02,
                   boxShadow: "0 25px 50px -12px rgba(6, 182, 212, 0.4)",
@@ -336,7 +485,13 @@ export default function Login() {
                   <div className="w-full border-t border-white/20" />
                 </div>
                 <div className="relative flex justify-center text-xs">
-                  <span className="px-3 bg-black/60 backdrop-blur-sm text-cyan-300/80 rounded-full">
+                  <span
+                    className="px-3 backdrop-blur-sm text-white/60 rounded-full"
+                    style={{
+                      background:
+                        "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
+                    }}
+                  >
                     or
                   </span>
                 </div>
@@ -350,12 +505,12 @@ export default function Login() {
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.5, delay: 1.0 }}
             >
-              <p className="text-sm text-cyan-300/80">
+              <p className="text-sm text-white/70">
                 Don't have an account?{" "}
                 <motion.button
                   type="button"
                   onClick={() => navigate("/register")}
-                  className="text-cyan-400 font-semibold hover:text-cyan-300 transition-colors duration-200"
+                  className="text-white/90 font-semibold hover:text-white transition-colors duration-200"
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                 >

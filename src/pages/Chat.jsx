@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import { motion } from "framer-motion";
 import Sidebar from "../components/Sidebar.jsx";
 import ChatWindow from "../components/ChatWindow.jsx";
+import Web3Background from "../components/Web3Background.jsx";
 
 /*
  * EXPORTS
@@ -24,65 +25,10 @@ export default function Chat() {
     }
   }, [user]);
 
-  /*
-   * UI Components
-   */
-  const FloatingParticle = ({ index }) => (
-    <motion.div
-      className="absolute w-1 h-1 bg-blue-400 rounded-full opacity-60"
-      animate={{
-        x: [0, Math.random() * 100 - 50],
-        y: [0, Math.random() * 100 - 50],
-        opacity: [0.6, 0.2, 0.6],
-      }}
-      transition={{
-        duration: 3 + Math.random() * 2,
-        repeat: Infinity,
-        repeatType: "reverse",
-        delay: index * 0.2,
-      }}
-      style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-      }}
-    />
-  );
-
-  const AnimatedBackground = () => (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-gray-900 to-black" />
-
-      {/* Glow effects */}
-      <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-blue-500/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/4 left-1/4 w-80 h-80 bg-purple-500/5 rounded-full blur-3xl"></div>
-
-      {/* Animated Gradient Overlay */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-blue-500/8 to-transparent"
-        animate={{
-          x: ["-100%", "100%"],
-        }}
-        transition={{
-          duration: 10,
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      />
-
-      {/* Floating Particles */}
-      {[...Array(15)].map((_, i) => (
-        <FloatingParticle key={i} index={i} />
-      ))}
-
-      {/* Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(59,130,246,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(59,130,246,0.08)_1px,transparent_1px)] bg-[size:80px_80px]" />
-    </div>
-  );
-
   return (
     <div className="h-screen flex w-full max-w-full relative overflow-hidden">
-      <AnimatedBackground />
+      <Web3Background />
+
       {/* Sidebar */}
       <motion.div
         className={`${
@@ -178,47 +124,31 @@ export default function Chat() {
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 1.0 }}
                 >
-                  Your AI assistant for microservices development. Start a
-                  conversation to get help with your projects.
+                  Your advanced AI companion for intelligent conversations and
+                  insights
                 </motion.p>
               </motion.div>
+
               <motion.button
-                onClick={() => setSelectedConversation("new")}
-                className="w-full max-w-md bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 backdrop-blur-xl border border-white/20 hover:border-white/40 text-white px-8 py-6 rounded-2xl font-medium transition-all duration-500 text-left shadow-2xl relative overflow-hidden group"
-                initial={{ y: 30, opacity: 0 }}
+                onClick={() => {
+                  setSelectedConversation({
+                    id: Date.now(),
+                    title: "New Conversation",
+                    messages: [],
+                  });
+                }}
+                className="group flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 backdrop-blur-sm border border-white/20 hover:border-white/40 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600/30 hover:via-purple-600/30 hover:to-cyan-600/30 hover:shadow-2xl hover:shadow-blue-500/20"
+                initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
-                whileHover={{
-                  scale: 1.03,
-                  boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)",
-                }}
-                whileTap={{ scale: 0.97 }}
+                whileHover={{ scale: 1.02, y: -2 }}
+                whileTap={{ scale: 0.98 }}
               >
-                {/* Animated background overlay */}
-                <motion.div
-                  className="absolute inset-0 bg-gradient-to-r from-blue-500/10 via-purple-500/10 to-cyan-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                  initial={false}
-                />
-
-                {/* Glowing border effect */}
-                <motion.div
-                  className="absolute inset-0 rounded-2xl bg-gradient-to-r from-blue-400/20 via-purple-400/20 to-cyan-400/20 opacity-0 group-hover:opacity-100 transition-opacity duration-500 blur-sm"
-                  initial={false}
-                />
-
-                <div className="flex items-center space-x-4 relative z-10">
+                <div className="flex items-center gap-4">
                   <motion.div
-                    className="w-12 h-12 bg-gradient-to-br from-green-400 via-emerald-500 to-teal-500 rounded-xl flex items-center justify-center shadow-xl border border-white/20"
-                    whileHover={{
-                      rotate: [0, -5, 5, 0],
-                      scale: 1.1,
-                      boxShadow: "0 20px 40px -12px rgba(16, 185, 129, 0.4)",
-                    }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 300,
-                      duration: 0.6,
-                    }}
+                    className="w-12 h-12 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-cyan-500/30 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/10"
+                    whileHover={{ rotate: 360 }}
+                    transition={{ duration: 0.5 }}
                   >
                     <motion.svg
                       className="w-6 h-6 text-white"

@@ -1,10 +1,10 @@
 /*
  * IMPORTS
  */
-import React, { useState } from "react";
+import React, { useState, useMemo } from "react";
 import { gql, useMutation } from "@apollo/client";
 import { useNavigate } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line
 import toast from "react-hot-toast";
 import {
   validateEmail,
@@ -120,62 +120,201 @@ export default function Register() {
   /*
    * UI Components
    */
-  const FloatingParticle = ({ index }) => (
-    <motion.div
-      className="absolute w-1 h-1 bg-purple-400 rounded-full opacity-60"
-      animate={{
-        x: [0, Math.random() * 100 - 50],
-        y: [0, Math.random() * 100 - 50],
-        opacity: [0.6, 0.2, 0.6],
-      }}
-      transition={{
-        duration: 3 + Math.random() * 2,
-        repeat: Infinity,
-        repeatType: "reverse",
-        delay: index * 0.2,
-      }}
-      style={{
-        left: `${Math.random() * 100}%`,
-        top: `${Math.random() * 100}%`,
-      }}
-    />
-  );
+  const AnimatedBackground = useMemo(
+    () => (
+      <div className="absolute inset-0 overflow-hidden">
+        {/* Base gradient with purple theme */}
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-950 via-purple-950/30 to-pink-950/20" />
 
-  const AnimatedBackground = () => (
-    <div className="absolute inset-0 overflow-hidden">
-      {/* Gradient Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-slate-900 via-purple-900 to-blue-900" />
+        {/* Organic Blob - Right Side (Purple) */}
+        <motion.div
+          className="absolute right-[-8%] top-[10%] w-96 h-96 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 70% 90% at 40% 60%, rgba(255, 0, 255, 0.5) 0%, rgba(138, 43, 226, 0.3) 30%, rgba(75, 0, 130, 0.1) 60%, transparent 100%)",
+            filter: "blur(55px)",
+            borderRadius: "40% 60% 70% 30% / 60% 40% 70% 50%",
+          }}
+          animate={{
+            scale: [1, 1.5, 0.9, 1.3, 1],
+            rotate: [0, -60, 40, -30, 0],
+            borderRadius: [
+              "40% 60% 70% 30% / 60% 40% 70% 50%",
+              "70% 30% 40% 60% / 50% 70% 40% 60%",
+              "50% 70% 60% 40% / 40% 50% 70% 30%",
+              "60% 40% 50% 70% / 70% 30% 50% 60%",
+              "40% 60% 70% 30% / 60% 40% 70% 50%",
+            ],
+            x: [30, -10, 50, 10, 30],
+            y: [0, 40, -30, 20, 0],
+          }}
+          transition={{
+            duration: 14,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      {/* Additional glow effects */}
-      <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
-      <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-blue-500/5 rounded-full blur-3xl"></div>
+        {/* Organic Blob - Left Side (Magenta) */}
+        <motion.div
+          className="absolute left-[-12%] top-[65%] w-80 h-80 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 20, 147, 0.4) 0%, rgba(199, 21, 133, 0.3) 40%, rgba(219, 112, 147, 0.1) 70%, transparent 100%)",
+            filter: "blur(50px)",
+            borderRadius: "60% 40% 30% 70% / 50% 60% 40% 70%",
+          }}
+          animate={{
+            scale: [1.2, 0.7, 1.4, 0.8, 1.2],
+            rotate: [0, 80, -50, 120, 0],
+            borderRadius: [
+              "60% 40% 30% 70% / 50% 60% 40% 70%",
+              "30% 70% 60% 40% / 70% 50% 60% 40%",
+              "70% 30% 40% 60% / 40% 70% 50% 60%",
+              "40% 60% 70% 30% / 60% 40% 70% 50%",
+              "60% 40% 30% 70% / 50% 60% 40% 70%",
+            ],
+            x: [-40, 10, -60, 20, -40],
+            y: [-20, 30, -40, 15, -20],
+          }}
+          transition={{
+            duration: 16,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      {/* Animated Gradient Overlay */}
-      <motion.div
-        className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/8 to-transparent"
-        animate={{
-          x: ["-100%", "100%"],
-        }}
-        transition={{
-          duration: 8,
-          repeat: Infinity,
-          repeatType: "loop",
-        }}
-      />
+        {/* Central Floating Blob (Violet) */}
+        <motion.div
+          className="absolute top-[35%] left-[50%] w-72 h-72 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(ellipse 90% 70% at 30% 60%, rgba(186, 85, 211, 0.3) 0%, rgba(147, 51, 234, 0.2) 40%, rgba(123, 31, 162, 0.1) 70%, transparent 100%)",
+            filter: "blur(40px)",
+            borderRadius: "50% 70% 40% 60% / 70% 50% 60% 40%",
+          }}
+          animate={{
+            scale: [0.9, 1.3, 0.8, 1.1, 0.9],
+            rotate: [0, 150, -100, 250, 0],
+            borderRadius: [
+              "50% 70% 40% 60% / 70% 50% 60% 40%",
+              "70% 40% 60% 50% / 50% 70% 40% 60%",
+              "40% 60% 50% 70% / 60% 40% 70% 50%",
+              "60% 50% 70% 40% / 40% 60% 50% 70%",
+              "50% 70% 40% 60% / 70% 50% 60% 40%",
+            ],
+            x: [-30, 40, -50, 30, -30],
+            y: [15, -40, 35, -25, 15],
+          }}
+          transition={{
+            duration: 20,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
 
-      {/* Floating Particles */}
-      {[...Array(20)].map((_, i) => (
-        <FloatingParticle key={i} index={i} />
-      ))}
+        {/* Small Ambient Blobs */}
+        {[...Array(5)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-24 h-24 pointer-events-none"
+            style={{
+              background:
+                "radial-gradient(circle, rgba(255, 105, 180, 0.4) 0%, rgba(147, 51, 234, 0.2) 50%, transparent 100%)",
+              filter: "blur(15px)",
+              borderRadius: "50%",
+              left: `${15 + i * 18}%`,
+              top: `${10 + i * 12}%`,
+            }}
+            animate={{
+              scale: [0.4, 1.6, 0.6, 1.3, 0.4],
+              opacity: [0.4, 0.8, 0.3, 0.7, 0.4],
+              x: [0, 60, -40, 50, 0],
+              y: [0, -50, 40, -30, 0],
+              rotate: [0, 180, -90, 270, 0],
+            }}
+            transition={{
+              duration: 10 + i * 2.5,
+              repeat: Infinity,
+              ease: "easeInOut",
+              delay: i * 2,
+            }}
+          />
+        ))}
 
-      {/* Enhanced Grid Pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(rgba(168,85,247,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(168,85,247,0.08)_1px,transparent_1px)] bg-[size:60px_60px]" />
-    </div>
+        {/* Additional Pulsing Orb - Upper Right */}
+        <motion.div
+          className="absolute top-[20%] right-[25%] w-48 h-48 pointer-events-none"
+          style={{
+            background:
+              "radial-gradient(circle, rgba(255, 105, 180, 0.25) 0%, rgba(238, 130, 238, 0.15) 60%, transparent 100%)",
+            filter: "blur(30px)",
+            borderRadius: "50%",
+          }}
+          animate={{
+            scale: [0.8, 1.2, 0.6, 1.4, 0.8],
+            opacity: [0.3, 0.7, 0.2, 0.6, 0.3],
+            x: [0, -30, 40, -20, 0],
+            y: [0, 25, -35, 15, 0],
+          }}
+          transition={{
+            duration: 8,
+            repeat: Infinity,
+            ease: "easeInOut",
+          }}
+        />
+
+        {/* Glassmorphism glow effects */}
+        <div className="absolute top-1/3 right-1/3 w-96 h-96 bg-purple-500/5 rounded-full blur-3xl"></div>
+        <div className="absolute bottom-1/3 left-1/3 w-80 h-80 bg-pink-500/3 rounded-full blur-3xl"></div>
+
+        {/* Animated Gradient Overlay */}
+        <motion.div
+          className="absolute inset-0 bg-gradient-to-r from-transparent via-purple-500/5 to-transparent"
+          animate={{
+            x: ["-100%", "100%"],
+          }}
+          transition={{
+            duration: 12,
+            repeat: Infinity,
+            repeatType: "loop",
+          }}
+        />
+
+        {/* Floating Particles with purple tint */}
+        {[...Array(25)].map((_, i) => (
+          <motion.div
+            key={i}
+            className="absolute w-1 h-1 bg-purple-400/40 rounded-full opacity-60"
+            animate={{
+              x: [0, Math.random() * 120 - 60],
+              y: [0, Math.random() * 120 - 60],
+              opacity: [0.6, 0.2, 0.6],
+              scale: [1, 1.5, 1],
+            }}
+            transition={{
+              duration: 4 + Math.random() * 3,
+              repeat: Infinity,
+              repeatType: "reverse",
+              delay: i * 0.15,
+            }}
+            style={{
+              left: `${Math.random() * 100}%`,
+              top: `${Math.random() * 100}%`,
+            }}
+          />
+        ))}
+
+        {/* Subtle Grid Pattern with purple tint */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(186,85,211,0.03)_1px,transparent_1px),linear-gradient(90deg,rgba(186,85,211,0.03)_1px,transparent_1px)] bg-[size:90px_90px]" />
+      </div>
+    ),
+    []
   );
 
   return (
     <div className="min-h-screen flex flex-col fixed inset-0">
-      <AnimatedBackground />
+      {AnimatedBackground}
 
       {/* Header */}
       <motion.div
