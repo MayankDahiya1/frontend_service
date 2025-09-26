@@ -13,7 +13,9 @@ const Web3Background = () => {
   // Initialize optimized particles
   const initializeParticles = () => {
     particles.current = [];
-    for (let i = 0; i < 50; i++) {
+    // Reduce particle count on mobile for better performance
+    const particleCount = window.innerWidth < 768 ? 25 : 50;
+    for (let i = 0; i < particleCount; i++) {
       particles.current.push({
         x: Math.random() * window.innerWidth,
         y: Math.random() * window.innerHeight,
@@ -36,8 +38,11 @@ const Web3Background = () => {
         const p2 = particles.current[j];
         const distance = Math.sqrt((p1.x - p2.x) ** 2 + (p1.y - p2.y) ** 2);
 
-        if (distance < 100) {
-          let opacity = ((100 - distance) / 100) * 0.2;
+        // Adjust connection distance for mobile
+        const connectionDistance = window.innerWidth < 768 ? 80 : 100;
+        if (distance < connectionDistance) {
+          let opacity =
+            ((connectionDistance - distance) / connectionDistance) * 0.2;
 
           // Strong mouse interaction
           const midX = (p1.x + p2.x) / 2;
@@ -47,8 +52,10 @@ const Web3Background = () => {
               (mousePosition.current.y - midY) ** 2
           );
 
-          if (mouseDistance < 120) {
-            const mouseEffect = (120 - mouseDistance) / 120;
+          // Adjust mouse interaction radius for mobile
+          const mouseRadius = window.innerWidth < 768 ? 100 : 120;
+          if (mouseDistance < mouseRadius) {
+            const mouseEffect = (mouseRadius - mouseDistance) / mouseRadius;
             opacity += mouseEffect * 0.8;
 
             // Pulsing effect

@@ -128,7 +128,7 @@ export default function Register() {
 
         {/* Organic Blob - Right Side (Purple) */}
         <motion.div
-          className="absolute right-[-8%] top-[10%] w-96 h-96 pointer-events-none"
+          className="absolute right-[-12%] sm:right-[-8%] top-[10%] w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse 70% 90% at 40% 60%, rgba(255, 0, 255, 0.5) 0%, rgba(138, 43, 226, 0.3) 30%, rgba(75, 0, 130, 0.1) 60%, transparent 100%)",
@@ -157,7 +157,7 @@ export default function Register() {
 
         {/* Organic Blob - Left Side (Magenta) */}
         <motion.div
-          className="absolute left-[-12%] top-[65%] w-80 h-80 pointer-events-none"
+          className="absolute left-[-16%] sm:left-[-12%] top-[65%] w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse 80% 60% at 50% 40%, rgba(255, 20, 147, 0.4) 0%, rgba(199, 21, 133, 0.3) 40%, rgba(219, 112, 147, 0.1) 70%, transparent 100%)",
@@ -186,7 +186,7 @@ export default function Register() {
 
         {/* Central Floating Blob (Violet) */}
         <motion.div
-          className="absolute top-[35%] left-[50%] w-72 h-72 pointer-events-none"
+          className="absolute top-[35%] left-[45%] sm:left-[50%] w-48 h-48 sm:w-60 sm:h-60 lg:w-72 lg:h-72 pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse 90% 70% at 30% 60%, rgba(186, 85, 211, 0.3) 0%, rgba(147, 51, 234, 0.2) 40%, rgba(123, 31, 162, 0.1) 70%, transparent 100%)",
@@ -318,53 +318,53 @@ export default function Register() {
 
       {/* Header */}
       <motion.div
-        className="flex justify-center pt-8 pb-6 relative z-10"
+        className="flex justify-center pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 px-4 relative z-10"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <motion.div
-            className="w-10 h-10 bg-gradient-to-br from-purple-400 to-blue-600 rounded-xl flex items-center justify-center shadow-2xl shadow-purple-500/30 border border-purple-400/20"
+            className="w-8 h-8 sm:w-10 sm:h-10 bg-gradient-to-br from-purple-400 to-blue-600 rounded-lg sm:rounded-xl flex items-center justify-center shadow-2xl shadow-purple-500/30 border border-purple-400/20"
             whileHover={{
               scale: 1.1,
               boxShadow: "0 25px 50px -12px rgba(168, 85, 247, 0.4)",
             }}
             transition={{ type: "spring", stiffness: 300 }}
           >
-            <span className="text-white font-bold text-xl">M</span>
+            <span className="text-white font-bold text-lg sm:text-xl">M</span>
           </motion.div>
-          <span className="text-2xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
+          <span className="text-xl sm:text-2xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent">
             MicroCore
           </span>
         </div>
       </motion.div>
 
       {/* Main */}
-      <div className="flex-1 flex items-center justify-center px-4 relative z-10">
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="w-full max-w-md"
+          className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           {/* Form Container with enhanced glass effect */}
           <motion.div
-            className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
+            className="bg-black/20 backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl"
             initial={{ y: 30, opacity: 0 }}
             animate={{ y: 0, opacity: 1 }}
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <motion.div
-              className="text-center mb-8"
+              className="text-center mb-6 sm:mb-8"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h1 className="text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent mb-4">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold bg-gradient-to-r from-purple-400 via-blue-400 to-cyan-400 bg-clip-text text-transparent mb-3 sm:mb-4">
                 Join MicroCore
               </h1>
-              <p className="text-sm text-purple-300/80">
+              <p className="text-xs sm:text-sm text-purple-300/80 px-2">
                 Create your account to access advanced AI services
               </p>
             </motion.div>

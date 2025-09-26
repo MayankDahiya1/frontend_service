@@ -151,7 +151,7 @@ export default function Login() {
 
         {/* Organic Blob - Left Side */}
         <motion.div
-          className="absolute left-[-10%] top-[20%] w-96 h-96 pointer-events-none"
+          className="absolute left-[-15%] sm:left-[-10%] top-[20%] w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse 60% 80% at 30% 40%, rgba(0, 255, 255, 0.6) 0%, rgba(0, 200, 255, 0.3) 30%, rgba(0, 150, 255, 0.1) 60%, transparent 100%)",
@@ -180,7 +180,7 @@ export default function Login() {
 
         {/* Organic Blob - Right Side */}
         <motion.div
-          className="absolute right-[-5%] top-[60%] w-80 h-80 pointer-events-none"
+          className="absolute right-[-10%] sm:right-[-5%] top-[60%] w-56 h-56 sm:w-72 sm:h-72 lg:w-80 lg:h-80 pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse 70% 50% at 60% 30%, rgba(255, 255, 255, 0.4) 0%, rgba(0, 255, 255, 0.3) 40%, rgba(0, 200, 255, 0.1) 70%, transparent 100%)",
@@ -209,7 +209,7 @@ export default function Login() {
 
         {/* Central Floating Blob */}
         <motion.div
-          className="absolute top-[40%] left-[45%] w-72 h-72 pointer-events-none"
+          className="absolute top-[40%] left-[40%] sm:left-[45%] w-48 h-48 sm:w-60 sm:h-60 lg:w-72 lg:h-72 pointer-events-none"
           style={{
             background:
               "radial-gradient(ellipse 80% 60% at 40% 50%, rgba(0, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.15) 30%, rgba(0, 150, 255, 0.08) 60%, transparent 100%)",
@@ -240,7 +240,7 @@ export default function Login() {
         {[...Array(4)].map((_, i) => (
           <motion.div
             key={i}
-            className="absolute w-32 h-32 pointer-events-none"
+            className="absolute w-20 h-20 sm:w-28 sm:h-28 lg:w-32 lg:h-32 pointer-events-none"
             style={{
               background:
                 "radial-gradient(circle, rgba(0, 255, 255, 0.3) 0%, rgba(255, 255, 255, 0.1) 50%, transparent 100%)",
@@ -299,14 +299,14 @@ export default function Login() {
 
       {/* Header */}
       <motion.div
-        className="flex justify-center pt-8 pb-6 relative z-10"
+        className="flex justify-center pt-4 sm:pt-6 lg:pt-8 pb-4 sm:pb-6 px-4 relative z-10"
         initial={{ y: -20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           <motion.div
-            className="w-10 h-10 rounded-xl flex items-center justify-center shadow-2xl border"
+            className="w-8 h-8 sm:w-10 sm:h-10 rounded-lg sm:rounded-xl flex items-center justify-center shadow-2xl border"
             style={{
               background:
                 "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -328,16 +328,16 @@ export default function Login() {
       </motion.div>
 
       {/* Main */}
-      <div className="flex-1 flex items-center justify-center px-4 relative z-10">
+      <div className="flex-1 flex items-center justify-center px-4 sm:px-6 lg:px-8 relative z-10">
         <motion.div
-          className="w-full max-w-md"
+          className="w-full max-w-sm sm:max-w-md lg:max-w-lg xl:max-w-xl"
           initial={{ scale: 0.9, opacity: 0 }}
           animate={{ scale: 1, opacity: 1 }}
           transition={{ duration: 0.5, delay: 0.2 }}
         >
           {/* Form Container with enhanced glass effect */}
           <motion.div
-            className="backdrop-blur-xl border border-white/10 rounded-3xl p-8 shadow-2xl"
+            className="backdrop-blur-xl border border-white/10 rounded-2xl sm:rounded-3xl p-6 sm:p-8 lg:p-10 shadow-2xl"
             style={{
               background:
                 "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
@@ -351,15 +351,15 @@ export default function Login() {
             transition={{ duration: 0.6, delay: 0.3 }}
           >
             <motion.div
-              className="text-center mb-8"
+              className="text-center mb-6 sm:mb-8"
               initial={{ y: 20, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.4 }}
             >
-              <h1 className="text-4xl font-bold text-white/90 mb-4">
+              <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white/90 mb-3 sm:mb-4">
                 Connect to MicroCore
               </h1>
-              <p className="text-sm text-white/70">
+              <p className="text-xs sm:text-sm text-white/70 px-2">
                 Sign in to access your AI microservices dashboard
               </p>
             </motion.div>
@@ -367,7 +367,7 @@ export default function Login() {
             {/* Form */}
             <motion.form
               onSubmit={handleSubmit}
-              className="space-y-6"
+              className="space-y-4 sm:space-y-6"
               initial={{ y: 30, opacity: 0 }}
               animate={{ y: 0, opacity: 1 }}
               transition={{ duration: 0.6, delay: 0.5 }}
@@ -381,7 +381,7 @@ export default function Login() {
                   type="email"
                   name="email"
                   placeholder="Email address"
-                  className={`w-full text-white px-5 py-4 text-sm border rounded-2xl placeholder-white/50 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
+                  className={`w-full text-white px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base border rounded-xl sm:rounded-2xl placeholder-white/50 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
                     errors.email
                       ? "focus:ring-red-400/50 border-red-400/50"
                       : "focus:ring-white/20 hover:border-white/30"
@@ -416,7 +416,7 @@ export default function Login() {
                   type="password"
                   name="password"
                   placeholder="Password"
-                  className={`w-full text-white px-5 py-4 text-sm border rounded-2xl placeholder-white/50 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
+                  className={`w-full text-white px-4 sm:px-5 py-3 sm:py-4 text-sm sm:text-base border rounded-xl sm:rounded-2xl placeholder-white/50 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:border-transparent transition-all duration-300 ${
                     errors.password
                       ? "border-red-400 focus:ring-red-400/50 bg-red-900/20"
                       : "focus:ring-white/20 hover:border-white/30"
@@ -445,7 +445,7 @@ export default function Login() {
               <motion.button
                 type="submit"
                 disabled={loading}
-                className="w-full text-white py-4 rounded-2xl text-sm font-semibold focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl border border-white/10"
+                className="w-full text-white py-3 sm:py-4 rounded-xl sm:rounded-2xl text-sm sm:text-base font-semibold focus:outline-none focus:ring-2 focus:ring-white/20 transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed shadow-2xl border border-white/10"
                 style={{
                   background:
                     "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -475,7 +475,7 @@ export default function Login() {
 
             {/* Divider */}
             <motion.div
-              className="my-8"
+              className="my-6 sm:my-8"
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
               transition={{ duration: 0.5, delay: 0.9 }}
@@ -524,13 +524,15 @@ export default function Login() {
 
       {/* Footer */}
       <motion.div
-        className="text-center py-6 text-xs text-cyan-400/60 px-4 relative z-10"
+        className="text-center py-4 sm:py-6 text-xs sm:text-sm text-cyan-400/60 px-4 relative z-10"
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 1.1 }}
       >
-        <p>Secure access to your AI microservices platform.</p>
-        <p className="mt-1 text-cyan-500/60">
+        <p className="hidden sm:block">
+          Secure access to your AI microservices platform.
+        </p>
+        <p className="mt-1 text-cyan-500/60 text-xs sm:text-sm">
           MicroCore - AI Microservices Platform
         </p>
       </motion.div>

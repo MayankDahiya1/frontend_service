@@ -243,16 +243,16 @@ export default function Sidebar({
         initial={{ y: -30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.1 }}
-        className="p-4 border-b border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
+        className="p-3 sm:p-4 border-b border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
         style={{
           boxShadow:
             "0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
         }}
       >
         <div className="flex items-center justify-between">
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <motion.div
-              className="w-8 h-8 rounded-full flex items-center justify-center shadow-lg"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-lg"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -262,15 +262,17 @@ export default function Sidebar({
                   "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
               }}
             >
-              <span className="text-white font-bold text-sm">M</span>
+              <span className="text-white font-bold text-xs sm:text-sm">M</span>
             </motion.div>
-            <span className="font-bold text-lg text-white/90">MicroCore</span>
+            <span className="font-bold text-base sm:text-lg text-white/90">
+              MicroCore
+            </span>
           </div>
           <motion.button
             whileHover={{ scale: 1.1 }}
             whileTap={{ scale: 0.9 }}
             onClick={() => setSidebarOpen(!sidebarOpen)}
-            className="p-2 rounded-lg border border-white/20 text-white/80 hover:bg-white/10 transition-all duration-300 hover:text-white"
+            className="p-1.5 sm:p-2 rounded-lg border border-white/20 text-white/80 hover:bg-white/10 transition-all duration-300 hover:text-white text-sm"
           >
             ✖
           </motion.button>
@@ -282,7 +284,7 @@ export default function Sidebar({
         initial={{ y: 20, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.2 }}
-        className="p-4 border-b border-white/10 relative z-10"
+        className="p-3 sm:p-4 border-b border-white/10 relative z-10"
         style={{
           background:
             "linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%)",
@@ -293,7 +295,7 @@ export default function Sidebar({
           whileHover={{ scale: 1.02, y: -2 }}
           whileTap={{ scale: 0.98 }}
           onClick={() => setSelectedConversation("new")}
-          className="w-full flex items-center gap-3 px-4 py-3 rounded-xl backdrop-blur-lg border transition-all duration-300 group"
+          className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl backdrop-blur-lg border transition-all duration-300 group"
           style={{
             background:
               "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
@@ -305,7 +307,7 @@ export default function Sidebar({
           }}
         >
           <motion.div
-            className="flex items-center justify-center w-8 h-8 rounded-full"
+            className="flex items-center justify-center w-7 h-7 sm:w-8 sm:h-8 rounded-full"
             style={{
               background:
                 "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -315,9 +317,11 @@ export default function Sidebar({
             whileHover={{ rotate: 180 }}
             transition={{ duration: 0.3 }}
           >
-            <span className="text-lg text-white/90 font-bold">+</span>
+            <span className="text-base sm:text-lg text-white/90 font-bold">
+              +
+            </span>
           </motion.div>
-          <span className="text-sm font-medium text-white/90 group-hover:text-white transition-colors duration-300">
+          <span className="text-xs sm:text-sm font-medium text-white/90 group-hover:text-white transition-colors duration-300">
             New AI Session
           </span>
         </motion.button>
@@ -325,17 +329,17 @@ export default function Sidebar({
 
       {/* Conversations */}
       <div className="flex-1 overflow-y-auto relative z-10">
-        <div className="p-2">
+        <div className="p-1.5 sm:p-2">
           <AnimatePresence>
             {loading && (
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                className="flex items-center justify-center py-8"
+                className="flex items-center justify-center py-6 sm:py-8"
               >
-                <motion.div className="w-6 h-6 border-2 border-cyan-400 border-t-transparent rounded-full" />
-                <span className="ml-3 text-cyan-400">
+                <motion.div className="w-5 h-5 sm:w-6 sm:h-6 border-2 border-cyan-400 border-t-transparent rounded-full" />
+                <span className="ml-2 sm:ml-3 text-cyan-400 text-xs sm:text-sm">
                   Loading conversations...
                 </span>
               </motion.div>
@@ -361,7 +365,7 @@ export default function Sidebar({
                 exit={{ opacity: 0, x: -20 }}
                 transition={{ duration: 0.3, delay: index * 0.05 }}
                 whileHover={{ scale: 1.02, x: 5 }}
-                className={`w-full text-left px-3 py-3 rounded-xl mb-2 transition-all duration-300 relative cursor-pointer backdrop-blur-sm border ${
+                className={`w-full text-left px-2.5 sm:px-3 py-2.5 sm:py-3 rounded-xl mb-1.5 sm:mb-2 transition-all duration-300 relative cursor-pointer backdrop-blur-sm border ${
                   selectedConversation === c.id
                     ? "bg-white/15 border-white/30 shadow-lg text-white"
                     : "hover:bg-white/5 text-gray-300 border-white/10 hover:border-white/20"
@@ -369,11 +373,11 @@ export default function Sidebar({
                 onClick={() => setSelectedConversation(c.id)}
               >
                 <div className="flex items-center justify-between">
-                  <div className="flex-1 pr-8">
-                    <div className="text-sm font-medium truncate">
+                  <div className="flex-1 pr-6 sm:pr-8">
+                    <div className="text-xs sm:text-sm font-medium truncate">
                       {c.title}
                     </div>
-                    <div className="text-xs text-gray-400 mt-1">
+                    <div className="text-xs text-gray-400 mt-0.5 sm:mt-1">
                       {new Date(c.createdAt).toLocaleDateString()}
                     </div>
                   </div>
@@ -381,7 +385,7 @@ export default function Sidebar({
                     whileHover={{ scale: 1.2 }}
                     whileTap={{ scale: 0.8 }}
                     onClick={(e) => handleDeleteConversation(c.id, e)}
-                    className="absolute right-3 top-1/2 -translate-y-1/2 w-6 h-6 flex items-center justify-center text-red-300 hover:text-red-200 bg-red-500/20 hover:bg-red-500/30 rounded-full border border-red-400/30 transition-all duration-300 backdrop-blur-sm"
+                    className="absolute right-2 sm:right-3 top-1/2 -translate-y-1/2 w-5 h-5 sm:w-6 sm:h-6 flex items-center justify-center text-red-300 hover:text-red-200 bg-red-500/20 hover:bg-red-500/30 rounded-full border border-red-400/30 transition-all duration-300 backdrop-blur-sm text-xs sm:text-sm"
                     title="Delete conversation"
                   >
                     ✕
@@ -398,16 +402,16 @@ export default function Sidebar({
         initial={{ y: 30, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.4, delay: 0.3 }}
-        className="p-4 border-t border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
+        className="p-3 sm:p-4 border-t border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
         style={{
           boxShadow:
             "0 -4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
         }}
       >
-        <div className="flex items-center justify-between mb-3">
-          <div className="flex items-center space-x-3">
+        <div className="flex items-center justify-between mb-2 sm:mb-3">
+          <div className="flex items-center space-x-2 sm:space-x-3">
             <motion.div
-              className="w-8 h-8 rounded-full flex items-center justify-center shadow-lg"
+              className="w-7 h-7 sm:w-8 sm:h-8 rounded-full flex items-center justify-center shadow-lg"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -426,15 +430,15 @@ export default function Sidebar({
               }}
               transition={{ duration: 2, repeat: Infinity }}
             >
-              <span className="text-white text-sm font-bold">
+              <span className="text-white text-xs sm:text-sm font-bold">
                 {user?.name?.[0] || "U"}
               </span>
             </motion.div>
-            <div>
-              <div className="text-sm text-white/90 font-medium">
+            <div className="min-w-0 flex-1">
+              <div className="text-xs sm:text-sm text-white/90 font-medium truncate">
                 {user?.name || "User"}
               </div>
-              <div className="text-xs text-white/60 truncate max-w-[150px]">
+              <div className="text-xs text-white/60 truncate max-w-[120px] sm:max-w-[150px]">
                 {user?.email || "user@example.com"}
               </div>
             </div>
@@ -444,7 +448,7 @@ export default function Sidebar({
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
           onClick={handleLogout}
-          className="px-4 py-2 w-full text-sm bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 rounded-xl text-red-300 font-medium transition-all duration-300 backdrop-blur-sm"
+          className="px-3 sm:px-4 py-1.5 sm:py-2 w-full text-xs sm:text-sm bg-red-500/20 hover:bg-red-500/30 border border-red-400/30 hover:border-red-400/50 rounded-xl text-red-300 font-medium transition-all duration-300 backdrop-blur-sm"
         >
           Disconnect Session
         </motion.button>

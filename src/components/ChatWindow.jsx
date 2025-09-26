@@ -438,26 +438,26 @@ export default function ChatWindow({
         initial={{ y: -50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5 }}
-        className="flex items-center justify-between p-4 border-b border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
+        className="flex items-center justify-between p-3 sm:p-4 border-b border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
         style={{
           boxShadow:
             "0 4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
         }}
       >
-        <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 sm:space-x-3">
           {!sidebarOpen && (
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSidebarOpen(true)}
-              className="p-2 hover:bg-white/10 rounded-lg border border-white/20 text-white/80 transition-all duration-300 hover:text-white"
+              className="p-1.5 sm:p-2 hover:bg-white/10 rounded-lg border border-white/20 text-white/80 transition-all duration-300 hover:text-white text-sm sm:text-base"
               aria-label="Open sidebar"
             >
               ☰
             </motion.button>
           )}
           <motion.h1
-            className="font-semibold text-xl text-white/90"
+            className="font-semibold text-lg sm:text-xl text-white/90"
             animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           >
@@ -467,18 +467,21 @@ export default function ChatWindow({
 
         {/* Status indicator */}
         <motion.div
-          className="flex items-center space-x-2"
+          className="flex items-center space-x-1 sm:space-x-2"
           animate={{ opacity: [0.5, 1, 0.5] }}
           transition={{ duration: 3, repeat: Infinity }}
         >
-          <div className="w-2 h-2 bg-green-300 rounded-full animate-pulse" />
-          <span className="text-green-400 text-xs">AI Online</span>
+          <div className="w-1.5 h-1.5 sm:w-2 sm:h-2 bg-green-300 rounded-full animate-pulse" />
+          <span className="text-green-400 text-xs hidden sm:inline">
+            AI Online
+          </span>
+          <span className="text-green-400 text-xs sm:hidden">●</span>
         </motion.div>
       </motion.div>
 
       {/* Messages */}
       <div
-        className="flex-1 overflow-y-auto px-8 py-6 relative z-10 scrollbar-hide"
+        className="flex-1 overflow-y-auto px-3 sm:px-6 lg:px-8 py-4 sm:py-6 relative z-10 scrollbar-hide"
         style={{
           scrollbarWidth: "none", // Firefox
           msOverflowStyle: "none", // IE/Edge
@@ -516,12 +519,12 @@ export default function ChatWindow({
             initial={{ opacity: 0, y: 20, scale: 0.95 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             transition={{ duration: 0.3, delay: i * 0.1 }}
-            className={`mb-6 flex ${
+            className={`mb-4 sm:mb-6 flex ${
               msg.role === "USER" ? "justify-end" : "justify-start"
             }`}
           >
             <div
-              className={`flex items-end max-w-[70%] relative group ${
+              className={`flex items-end max-w-[85%] sm:max-w-[70%] relative group ${
                 msg.role === "USER" ? "flex-row-reverse" : ""
               }`}
             >
@@ -529,12 +532,12 @@ export default function ChatWindow({
               <motion.div
                 whileHover={{ scale: 1.1 }}
                 className={`flex-shrink-0 ${
-                  msg.role === "USER" ? "ml-3" : "mr-3"
+                  msg.role === "USER" ? "ml-2 sm:ml-3" : "mr-2 sm:mr-3"
                 }`}
               >
                 {msg.role === "USER" ? (
                   <div
-                    className="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg"
                     style={{
                       background:
                         "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -543,11 +546,13 @@ export default function ChatWindow({
                         "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
                     }}
                   >
-                    <span className="text-white text-sm font-bold">U</span>
+                    <span className="text-white text-xs sm:text-sm font-bold">
+                      U
+                    </span>
                   </div>
                 ) : (
                   <motion.div
-                    className="w-10 h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg"
+                    className="w-8 h-8 sm:w-10 sm:h-10 rounded-full flex items-center justify-center border-2 border-white/20 shadow-lg"
                     style={{
                       background:
                         "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
@@ -564,7 +569,9 @@ export default function ChatWindow({
                     }}
                     transition={{ duration: 2, repeat: Infinity }}
                   >
-                    <span className="text-black text-sm font-bold">M</span>
+                    <span className="text-black text-xs sm:text-sm font-bold">
+                      M
+                    </span>
                   </motion.div>
                 )}
               </motion.div>
@@ -575,14 +582,14 @@ export default function ChatWindow({
                 transition={{ type: "spring", stiffness: 300 }}
               >
                 <div
-                  className={`inline-block px-5 py-3 rounded-2xl break-words backdrop-blur-sm border shadow-lg ${
+                  className={`inline-block px-3 sm:px-5 py-2 sm:py-3 rounded-2xl break-words backdrop-blur-sm border shadow-lg ${
                     msg.role === "USER"
                       ? "bg-gradient-to-r from-blue-600 to-purple-600 text-white border-blue-400/30 shadow-blue-500/20"
                       : "bg-gray-800/80 text-white border-cyan-400/20 shadow-cyan-500/10"
                   }`}
                   style={{ maxWidth: "100%" }}
                 >
-                  <p className="text-sm leading-relaxed whitespace-pre-wrap">
+                  <p className="text-xs sm:text-sm leading-relaxed whitespace-pre-wrap">
                     {msg.role === "ASSISTANT" &&
                     typewriterMessages.has(msg.id) ? (
                       <TypewriterText
@@ -678,13 +685,13 @@ export default function ChatWindow({
         initial={{ y: 50, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.5, delay: 0.2 }}
-        className="p-6 border-t border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
+        className="p-3 sm:p-4 lg:p-6 border-t border-white/10 backdrop-blur-lg bg-white/5 relative z-10"
         style={{
           boxShadow:
             "0 -4px 6px rgba(0, 0, 0, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.1)",
         }}
       >
-        <div className="flex space-x-3 items-end">
+        <div className="flex flex-col sm:flex-row space-y-2 sm:space-y-0 sm:space-x-3 sm:items-end">
           <div className="relative flex-1">
             <motion.textarea
               whileFocus={{ scale: 1.02 }}
@@ -692,7 +699,7 @@ export default function ChatWindow({
               onChange={(e) => setFinalInput(e.target.value)}
               onKeyPress={handleKeyPress}
               placeholder="Type your message here..."
-              className="w-full px-4 py-3 rounded-xl text-white pr-16 resize-none border border-white/20 focus:border-white/40 focus:ring-2 focus:ring-white/10 backdrop-blur-sm shadow-lg transition-all duration-300 placeholder-white/50"
+              className="w-full px-3 sm:px-4 py-2 sm:py-3 rounded-xl text-white pr-12 sm:pr-16 resize-none border border-white/20 focus:border-white/40 focus:ring-2 focus:ring-white/10 backdrop-blur-sm shadow-lg transition-all duration-300 placeholder-white/50 text-sm sm:text-base"
               style={{
                 background:
                   "linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%)",
@@ -704,54 +711,56 @@ export default function ChatWindow({
               <motion.div
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
-                className="absolute left-4 bottom-3 text-cyan-300 italic pointer-events-none text-sm"
+                className="absolute left-3 sm:left-4 bottom-2 sm:bottom-3 text-cyan-300 italic pointer-events-none text-xs sm:text-sm"
               >
                 {interimInput}
               </motion.div>
             )}
           </div>
 
-          {/* Voice recording button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleMicClick}
-            className={`px-4 py-3 rounded-xl flex items-center justify-center border-2 shadow-lg transition-all duration-300 ${
-              isRecording
-                ? "bg-red-500/20 border-red-400 text-red-400 shadow-red-500/20"
-                : "bg-green-500/20 border-green-400 text-green-400 shadow-green-500/20 hover:bg-green-500/30"
-            }`}
-            aria-label={isRecording ? "Stop recording" : "Start recording"}
-          >
-            {isRecording ? (
-              <motion.span
-                animate={{ scale: [1, 1.2, 1] }}
-                transition={{ duration: 0.5, repeat: Infinity }}
-              >
-                ⏹
-              </motion.span>
-            ) : (
-              "🎤"
-            )}
-          </motion.button>
+          <div className="flex space-x-2 sm:space-x-3 sm:flex-row">
+            {/* Voice recording button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleMicClick}
+              className={`px-3 sm:px-4 py-2 sm:py-3 rounded-xl flex items-center justify-center border-2 shadow-lg transition-all duration-300 text-sm sm:text-base ${
+                isRecording
+                  ? "bg-red-500/20 border-red-400 text-red-400 shadow-red-500/20"
+                  : "bg-green-500/20 border-green-400 text-green-400 shadow-green-500/20 hover:bg-green-500/30"
+              }`}
+              aria-label={isRecording ? "Stop recording" : "Start recording"}
+            >
+              {isRecording ? (
+                <motion.span
+                  animate={{ scale: [1, 1.2, 1] }}
+                  transition={{ duration: 0.5, repeat: Infinity }}
+                >
+                  ⏹
+                </motion.span>
+              ) : (
+                "🎤"
+              )}
+            </motion.button>
 
-          {/* Send button */}
-          <motion.button
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={handleSendMessage}
-            className="px-6 py-3 rounded-xl text-white font-semibold border border-white/20 shadow-lg hover:shadow-white/20 transition-all duration-300 backdrop-blur-sm"
-            style={{
-              background:
-                "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
-              backdropFilter: "blur(10px)",
-              boxShadow:
-                "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
-            }}
-            aria-label="Send message"
-          >
-            Send
-          </motion.button>
+            {/* Send button */}
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={handleSendMessage}
+              className="px-4 sm:px-6 py-2 sm:py-3 rounded-xl text-white font-semibold border border-white/20 shadow-lg hover:shadow-white/20 transition-all duration-300 backdrop-blur-sm text-sm sm:text-base"
+              style={{
+                background:
+                  "linear-gradient(135deg, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.1) 100%)",
+                backdropFilter: "blur(10px)",
+                boxShadow:
+                  "0 8px 32px rgba(0, 0, 0, 0.3), inset 0 1px 0 rgba(255, 255, 255, 0.2)",
+              }}
+              aria-label="Send message"
+            >
+              Send
+            </motion.button>
+          </div>
         </div>
       </motion.div>
     </div>

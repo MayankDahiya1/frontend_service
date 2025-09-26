@@ -3,7 +3,7 @@
  */
 import React, { useState, useEffect } from "react";
 import { useSelector } from "react-redux";
-import { motion } from "framer-motion";
+import { motion } from "framer-motion"; // eslint-disable-line
 import Sidebar from "../components/Sidebar.jsx";
 import ChatWindow from "../components/ChatWindow.jsx";
 import Web3Background from "../components/Web3Background.jsx";
@@ -32,8 +32,10 @@ export default function Chat() {
       {/* Sidebar */}
       <motion.div
         className={`${
-          sidebarOpen ? "w-64" : "w-0"
-        } transition-all duration-300 overflow-hidden relative z-10`}
+          sidebarOpen ? "w-64 sm:w-72 lg:w-80" : "w-0"
+        } transition-all duration-300 overflow-hidden relative z-10 ${
+          sidebarOpen ? "fixed inset-y-0 left-0 md:relative" : ""
+        }`}
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6 }}
@@ -45,6 +47,17 @@ export default function Chat() {
           setSidebarOpen={setSidebarOpen}
         />
       </motion.div>
+
+      {/* Mobile Overlay */}
+      {sidebarOpen && (
+        <motion.div
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-5 md:hidden"
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          onClick={() => setSidebarOpen(false)}
+        />
+      )}
 
       {/* Chat window */}
       <motion.div
@@ -64,7 +77,7 @@ export default function Chat() {
             {!sidebarOpen && (
               <motion.button
                 onClick={() => setSidebarOpen(true)}
-                className="absolute top-4 left-4 p-3 bg-black/40 backdrop-blur-sm border border-white/20 hover:bg-black/60 rounded-xl transition-all duration-300 text-white hover:border-white/40 z-20"
+                className="absolute top-3 sm:top-4 left-3 sm:left-4 p-2 sm:p-3 bg-black/40 backdrop-blur-sm border border-white/20 hover:bg-black/60 rounded-lg sm:rounded-xl transition-all duration-300 text-white hover:border-white/40 z-20"
                 whileHover={{ scale: 1.05 }}
                 whileTap={{ scale: 0.95 }}
                 initial={{ opacity: 0 }}
@@ -72,7 +85,7 @@ export default function Chat() {
                 transition={{ delay: 0.3 }}
               >
                 <svg
-                  className="w-5 h-5"
+                  className="w-4 h-4 sm:w-5 sm:h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
