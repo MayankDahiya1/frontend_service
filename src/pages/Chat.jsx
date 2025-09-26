@@ -13,7 +13,8 @@ import Web3Background from "../components/Web3Background.jsx";
  */
 export default function Chat() {
   const [selectedConversation, setSelectedConversation] = useState(null);
-  const [sidebarOpen, setSidebarOpen] = useState(true);
+  // Start with sidebar closed on mobile, open on desktop
+  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
 
   // Get current user from Redux
   const user = useSelector((state) => state.auth.user);
@@ -25,6 +26,20 @@ export default function Chat() {
     }
   }, [user]);
 
+  // Handle window resize for sidebar behavior
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setSidebarOpen(true);
+      } else {
+        setSidebarOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <div className="h-screen flex w-full max-w-full relative overflow-hidden">
       <Web3Background />
@@ -32,9 +47,11 @@ export default function Chat() {
       {/* Sidebar */}
       <motion.div
         className={`${
-          sidebarOpen ? "w-64 sm:w-72 lg:w-80" : "w-0"
-        } transition-all duration-300 overflow-hidden relative z-10 ${
-          sidebarOpen ? "fixed inset-y-0 left-0 md:relative" : ""
+          sidebarOpen
+            ? "w-64 sm:w-72 lg:w-80 fixed inset-y-0 left-0 md:relative md:translate-x-0"
+            : "w-0 md:w-0"
+        } transition-all duration-300 overflow-hidden z-20 ${
+          sidebarOpen ? "translate-x-0" : "-translate-x-full md:translate-x-0"
         }`}
         initial={{ x: -20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
@@ -51,7 +68,7 @@ export default function Chat() {
       {/* Mobile Overlay */}
       {sidebarOpen && (
         <motion.div
-          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-5 md:hidden"
+          className="fixed inset-0 bg-black/50 backdrop-blur-sm z-10 md:hidden"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -61,7 +78,7 @@ export default function Chat() {
 
       {/* Chat window */}
       <motion.div
-        className="flex-1 flex flex-col w-full max-w-full relative z-10"
+        className="flex-1 flex flex-col w-full max-w-full relative z-0 md:z-10"
         initial={{ x: 20, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ duration: 0.6, delay: 0.2 }}
@@ -99,15 +116,15 @@ export default function Chat() {
                 </svg>
               </motion.button>
             )}
-            <div className="h-full w-full flex flex-col justify-center items-center">
+            <div className="h-full w-full flex flex-col justify-center items-center px-4 sm:px-8">
               <motion.div
-                className="text-center mb-12 max-w-2xl"
+                className="text-center mb-8 sm:mb-12 max-w-2xl"
                 initial={{ y: 30, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.8, delay: 0.4 }}
               >
                 <motion.div
-                  className="w-20 h-20 bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-8 shadow-2xl shadow-blue-500/30 border border-white/10"
+                  className="w-16 h-16 sm:w-20 sm:h-20 bg-gradient-to-br from-blue-500 via-purple-600 to-cyan-500 rounded-full flex items-center justify-center mx-auto mb-6 sm:mb-8 shadow-2xl shadow-blue-500/30 border border-white/10"
                   initial={{ scale: 0 }}
                   animate={{ scale: 1 }}
                   transition={{
@@ -121,10 +138,12 @@ export default function Chat() {
                     boxShadow: "0 25px 50px -12px rgba(59, 130, 246, 0.4)",
                   }}
                 >
-                  <span className="text-white font-bold text-3xl">M</span>
+                  <span className="text-white font-bold text-2xl sm:text-3xl">
+                    M
+                  </span>
                 </motion.div>
                 <motion.h1
-                  className="text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-4"
+                  className="text-2xl sm:text-4xl font-bold bg-gradient-to-r from-blue-400 via-purple-400 to-cyan-400 bg-clip-text text-transparent mb-3 sm:mb-4"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 0.8 }}
@@ -132,7 +151,7 @@ export default function Chat() {
                   Welcome to MicroCore
                 </motion.h1>
                 <motion.p
-                  className="text-gray-300 text-lg mb-8"
+                  className="text-gray-300 text-sm sm:text-lg mb-6 sm:mb-8 px-4 sm:px-0"
                   initial={{ y: 20, opacity: 0 }}
                   animate={{ y: 0, opacity: 1 }}
                   transition={{ duration: 0.6, delay: 1.0 }}
@@ -150,21 +169,21 @@ export default function Chat() {
                     messages: [],
                   });
                 }}
-                className="group flex items-center gap-4 px-8 py-4 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 backdrop-blur-sm border border-white/20 hover:border-white/40 rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600/30 hover:via-purple-600/30 hover:to-cyan-600/30 hover:shadow-2xl hover:shadow-blue-500/20"
+                className="group flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 backdrop-blur-sm border border-white/20 hover:border-white/40 rounded-xl sm:rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600/30 hover:via-purple-600/30 hover:to-cyan-600/30 hover:shadow-2xl hover:shadow-blue-500/20"
                 initial={{ y: 20, opacity: 0 }}
                 animate={{ y: 0, opacity: 1 }}
                 transition={{ duration: 0.6, delay: 1.2 }}
                 whileHover={{ scale: 1.02, y: -2 }}
                 whileTap={{ scale: 0.98 }}
               >
-                <div className="flex items-center gap-4">
+                <div className="flex items-center gap-3 sm:gap-4">
                   <motion.div
-                    className="w-12 h-12 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-cyan-500/30 rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/10"
+                    className="w-10 h-10 sm:w-12 sm:h-12 bg-gradient-to-br from-blue-500/30 via-purple-500/30 to-cyan-500/30 rounded-lg sm:rounded-xl flex items-center justify-center backdrop-blur-sm border border-white/10"
                     whileHover={{ rotate: 360 }}
                     transition={{ duration: 0.5 }}
                   >
                     <motion.svg
-                      className="w-6 h-6 text-white"
+                      className="w-5 h-5 sm:w-6 sm:h-6 text-white"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -180,13 +199,13 @@ export default function Chat() {
                   </motion.div>
                   <div>
                     <motion.div
-                      className="text-xl font-bold bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent"
+                      className="text-lg sm:text-xl font-bold bg-gradient-to-r from-white via-blue-100 to-cyan-100 bg-clip-text text-transparent"
                       whileHover={{ scale: 1.02 }}
                     >
                       Start New Chat
                     </motion.div>
                     <motion.div
-                      className="text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
+                      className="text-xs sm:text-sm text-gray-300 group-hover:text-gray-200 transition-colors duration-300"
                       whileHover={{ scale: 1.01 }}
                     >
                       Begin a new conversation with MicroCore AI
