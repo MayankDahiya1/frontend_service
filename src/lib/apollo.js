@@ -18,7 +18,7 @@ import { networkLogger } from "../utils/debug";
  * HTTP LINK (Queries + Mutations)
  */
 const _HttpLink = new HttpLink({
-  uri: "http://localhost:4000/graphql",
+  uri: "https://mayank.engineer/graphql",
 });
 
 /*
@@ -26,7 +26,7 @@ const _HttpLink = new HttpLink({
  */
 const _WsLink = new GraphQLWsLink(
   createClient({
-    url: "ws://localhost:4000/graphql",
+    url: "wss://mayank.engineer/graphql",
     connectionParams: () => {
       const _Token = localStorage.getItem("accessToken");
       return {
