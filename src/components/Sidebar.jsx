@@ -294,7 +294,13 @@ export default function Sidebar({
         <motion.button
           whileHover={{ scale: 1.02, y: -2 }}
           whileTap={{ scale: 0.98 }}
-          onClick={() => setSelectedConversation("new")}
+          onClick={() => {
+            setSelectedConversation("new");
+            // Close sidebar on mobile after selecting new conversation
+            if (window.innerWidth < 768) {
+              setSidebarOpen(false);
+            }
+          }}
           className="w-full flex items-center gap-2 sm:gap-3 px-3 sm:px-4 py-2.5 sm:py-3 rounded-xl backdrop-blur-lg border transition-all duration-300 group"
           style={{
             background:
@@ -370,7 +376,13 @@ export default function Sidebar({
                     ? "bg-white/15 border-white/30 shadow-lg text-white"
                     : "hover:bg-white/5 text-gray-300 border-white/10 hover:border-white/20"
                 }`}
-                onClick={() => setSelectedConversation(c.id)}
+                onClick={() => {
+                  setSelectedConversation(c.id);
+                  // Close sidebar on mobile after selecting conversation
+                  if (window.innerWidth < 768) {
+                    setSidebarOpen(false);
+                  }
+                }}
               >
                 <div className="flex items-center justify-between">
                   <div className="flex-1 pr-6 sm:pr-8">

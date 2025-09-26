@@ -457,7 +457,7 @@ export default function ChatWindow({
             </motion.button>
           )}
           <motion.h1
-            className="font-semibold text-lg sm:text-xl text-white/90"
+            className="font-semibold text-base sm:text-xl text-white/90"
             animate={{ opacity: [0.8, 1, 0.8] }}
             transition={{ duration: 2, repeat: Infinity }}
           >

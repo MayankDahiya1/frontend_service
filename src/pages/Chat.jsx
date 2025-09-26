@@ -13,8 +13,7 @@ import Web3Background from "../components/Web3Background.jsx";
  */
 export default function Chat() {
   const [selectedConversation, setSelectedConversation] = useState(null);
-  // Start with sidebar closed on mobile, open on desktop
-  const [sidebarOpen, setSidebarOpen] = useState(window.innerWidth >= 768);
+  const [sidebarOpen, setSidebarOpen] = useState(false);
 
   // Get current user from Redux
   const user = useSelector((state) => state.auth.user);
@@ -26,7 +25,7 @@ export default function Chat() {
     }
   }, [user]);
 
-  // Handle window resize for sidebar behavior
+  // Set initial sidebar state and handle window resize
   useEffect(() => {
     const handleResize = () => {
       if (window.innerWidth >= 768) {
@@ -35,6 +34,9 @@ export default function Chat() {
         setSidebarOpen(false);
       }
     };
+
+    // Set initial state
+    handleResize();
 
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
