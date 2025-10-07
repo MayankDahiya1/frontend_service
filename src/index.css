@@ -1,24 +1,54 @@
 @import "tailwindcss";
 
-/* Force dark theme globally - prevent browser theme switching */
+/* Ultra aggressive dark theme enforcement */
 html {
   color-scheme: dark only !important;
   background-color: #0a0a0a !important;
+  background: #0a0a0a !important;
 }
 
-/* Prevent any theme switching in all browsers including incognito */
-* {
+html * {
   color-scheme: dark only !important;
 }
 
-/* Specific override for webkit browsers */
+/* Force dark in incognito and all modes */
 @media (prefers-color-scheme: light) {
+  html,
+  body,
+  #root,
+  * {
+    background-color: #0a0a0a !important;
+    background: #0a0a0a !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+  }
+}
+
+/* Additional browser specific overrides */
+@media (prefers-color-scheme: dark) {
   html,
   body,
   #root {
     background-color: #0a0a0a !important;
-    color: rgba(255, 255, 255, 0.87) !important;
+    background: #0a0a0a !important;
   }
+}
+
+/* Universal override for all elements */
+*,
+*::before,
+*::after {
+  color-scheme: dark only !important;
+}
+
+/* Force dark theme class that JavaScript will apply */
+.force-dark-theme {
+  background-color: #0a0a0a !important;
+  background: #0a0a0a !important;
+  color: rgba(255, 255, 255, 0.87) !important;
+}
+
+.force-dark-theme * {
+  color-scheme: dark only !important;
 }
 
 :root {
@@ -26,9 +56,14 @@ html {
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: dark only;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #0a0a0a;
+  /* Force dark theme variables */
+  --bg-color: #0a0a0a;
+  --text-color: rgba(255, 255, 255, 0.87);
+
+  color-scheme: dark only !important;
+  color: var(--text-color) !important;
+  background-color: var(--bg-color) !important;
+  background: var(--bg-color) !important;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -49,9 +84,10 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
-  /* Force dark theme always */
-  background-color: #0a0a0a !important;
-  color: rgba(255, 255, 255, 0.87) !important;
+  /* Ultra force dark theme always */
+  background-color: var(--bg-color) !important;
+  background: var(--bg-color) !important;
+  color: var(--text-color) !important;
   /* Removed flex centering to allow custom layouts */
 }
 
