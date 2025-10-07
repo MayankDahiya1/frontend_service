@@ -1,13 +1,34 @@
 @import "tailwindcss";
 
+/* Force dark theme globally - prevent browser theme switching */
+html {
+  color-scheme: dark only !important;
+  background-color: #0a0a0a !important;
+}
+
+/* Prevent any theme switching in all browsers including incognito */
+* {
+  color-scheme: dark only !important;
+}
+
+/* Specific override for webkit browsers */
+@media (prefers-color-scheme: light) {
+  html,
+  body,
+  #root {
+    background-color: #0a0a0a !important;
+    color: rgba(255, 255, 255, 0.87) !important;
+  }
+}
+
 :root {
   font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
 
-  color-scheme: light dark;
+  color-scheme: dark only;
   color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+  background-color: #0a0a0a;
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -28,6 +49,9 @@ body {
   margin: 0;
   min-width: 320px;
   min-height: 100vh;
+  /* Force dark theme always */
+  background-color: #0a0a0a !important;
+  color: rgba(255, 255, 255, 0.87) !important;
   /* Removed flex centering to allow custom layouts */
 }
 
