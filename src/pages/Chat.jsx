@@ -165,11 +165,7 @@ export default function Chat() {
 
               <motion.button
                 onClick={() => {
-                  setSelectedConversation({
-                    id: Date.now(),
-                    title: "New Conversation",
-                    messages: [],
-                  });
+                  setSelectedConversation("new");
                 }}
                 className="group flex items-center gap-3 sm:gap-4 px-6 sm:px-8 py-3 sm:py-4 bg-gradient-to-r from-blue-600/20 via-purple-600/20 to-cyan-600/20 backdrop-blur-sm border border-white/20 hover:border-white/40 rounded-xl sm:rounded-2xl transition-all duration-300 hover:bg-gradient-to-r hover:from-blue-600/30 hover:via-purple-600/30 hover:to-cyan-600/30 hover:shadow-2xl hover:shadow-blue-500/20"
                 initial={{ y: 20, opacity: 0 }}

@@ -20,9 +20,9 @@ const CursorFollow = () => {
 
     // Smooth follow animation using requestAnimationFrame
     const animate = () => {
-      // Lerp for smooth following (adjust 0.15 for speed - lower = smoother)
-      cursorX += (mouseX - cursorX) * 0.15;
-      cursorY += (mouseY - cursorY) * 0.15;
+      // Lerp for smooth following (adjust 0.35 for speed - higher = faster)
+      cursorX += (mouseX - cursorX) * 0.35;
+      cursorY += (mouseY - cursorY) * 0.35;
 
       // Center the cursor by offsetting by half its size (10px)
       cursor.style.transform = `translate(${cursorX - 10}px, ${
